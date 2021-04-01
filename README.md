@@ -19,3 +19,10 @@ yarn start
 #ou
 npm start
 ```
+## Membros do time
+-Fabricio Monteiro
+-Caio dos Santos
+-Gabriel Rodrigues
+-João Victor Souza
+-Judson Miller
+-Julinha
