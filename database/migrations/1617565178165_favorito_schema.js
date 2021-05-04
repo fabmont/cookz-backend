@@ -1,20 +1,30 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class FavoritoSchema extends Schema {
-  up () {
+  up() {
     this.create('favoritos', (table) => {
-      table.integer('Usuario_id').references('id').intable('usuarios').unsigned().notNullable()
-      table.integer('Receita_id').references('id').intable('receitas').unsigned().notNullable()
-      table.timestamps()
-    })
+      table
+        .integer('id_usuario')
+        .references('id')
+        .inTable('usuarios')
+        .unsigned()
+        .notNullable();
+      table
+        .integer('id_receita')
+        .references('id')
+        .inTable('receitas')
+        .unsigned()
+        .notNullable();
+      table.timestamps();
+    });
   }
 
-  down () {
-    this.drop('favoritos')
+  down() {
+    this.drop('favoritos');
   }
 }
 
-module.exports = FavoritoSchema
+module.exports = FavoritoSchema;

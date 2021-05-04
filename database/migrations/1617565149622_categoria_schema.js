@@ -1,20 +1,20 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class CategoriaSchema extends Schema {
-  up () {
+  up() {
     this.create('categorias', (table) => {
-      table.increments()
-      table.string('descrição',50).notNullable()
-      table.timestamps()
-    })
+      table.increments();
+      table.string('descricao', 50).notNullable();
+      table.timestamps();
+    });
   }
 
-  down () {
-    this.drop('categorias')
+  down() {
+    this.drop('categorias');
   }
 }
 
-module.exports = CategoriaSchema
+module.exports = CategoriaSchema;

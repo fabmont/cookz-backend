@@ -1,27 +1,47 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class ReceitaSchema extends Schema {
-  up () {
+  up() {
     this.create('receitas', (table) => {
-      table.increments()
-      table.string('Nome',30).notNullable()
-      table.integer('Tempo_aprox').notNullable()
-      table.string('Descrição',300).notNullable()
-      table.integer('Usuario_id').references('id').intable('usuarios').unsigned().notNullable()
-      table.integer('Categoria_id').references('id').intable('categorias').unsigned().notNullable()
-      table.integer('Dificuldade_id').references('id').intable('dificuldades').unsigned().notNullable()
-      table.integer('ingredientes_id').references('id').intable('ingredientes_receitas').unsigned().notNullable()
-      
-      table.timestamps()
-    })
+      table.increments();
+      table.string('nome', 30).notNullable();
+      table.integer('tempo_aprox').notNullable();
+      table.string('descrição', 300).notNullable();
+      table
+        .integer('id_usuario')
+        .references('id')
+        .inTable('usuarios')
+        .unsigned()
+        .notNullable();
+      table
+        .integer('id_categoria')
+        .references('id')
+        .inTable('categorias')
+        .unsigned()
+        .notNullable();
+      table
+        .integer('id_dificuldade')
+        .references('id')
+        .inTable('dificuldades')
+        .unsigned()
+        .notNullable();
+      table
+        .integer('id_ingredientes')
+        .references('id')
+        .inTable('ingredientes_receitas')
+        .unsigned()
+        .notNullable();
+
+      table.timestamps();
+    });
   }
 
-  down () {
-    this.drop('receitas')
+  down() {
+    this.drop('receitas');
   }
 }
 
-module.exports = ReceitaSchema
+module.exports = ReceitaSchema;
