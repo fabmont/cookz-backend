@@ -7,7 +7,7 @@ class IngredientesSchema extends Schema {
   up() {
     this.create('ingredientes', (table) => {
       table.increments();
-      table.string('descricao').notNullable();
+      table.string('nome').notNullable();
       table.timestamps();
     });
   }
