@@ -5,7 +5,7 @@ const Schema = use('Schema');
 
 class AvaliacaoSchema extends Schema {
   up() {
-    this.create('avaliacaos', (table) => {
+    this.create('avaliacoes', (table) => {
       table.increments();
       table.string('comentario').notNullable();
       table.integer('nota').notNullable();
@@ -26,7 +26,7 @@ class AvaliacaoSchema extends Schema {
   }
 
   down() {
-    this.drop('avaliacaos');
+    this.drop('avaliacoes');
   }
 }
 
