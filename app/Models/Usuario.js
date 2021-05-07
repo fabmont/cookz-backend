@@ -12,7 +12,7 @@ class Usuario extends Model {
 
     this.addHook('beforeSave', async (userInstance) => {
       if (userInstance.dirty.senha) {
-        uarioInstance.senha = await Hash.make(userInstance.senha);
+        userInstance.senha = await Hash.make(userInstance.senha);
       }
     });
   }

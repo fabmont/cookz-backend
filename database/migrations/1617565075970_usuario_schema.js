@@ -11,7 +11,7 @@ class UsuarioSchema extends Schema {
       table.string('uf', 2).notNullable();
       table.boolean('usuarioProfissional').notNullable();
       table.string('email', 254).notNullable().unique();
-      table.string('password', 254).notNullable();
+      table.string('senha', 254).notNullable();
       table.timestamps();
     });
   }
