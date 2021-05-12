@@ -13,8 +13,20 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+const UnidadeMedida = use('App/Models/UnidadeMedida')
+
+
 class UnidadeMedidaSeeder {
   async run () {
+
+    await UnidadeMedida.createMany([
+      {id: 1, descricao: '',sigla: ''},
+      {id: 2, descricao: '',sigla: ''},
+      {id: 3, descricao: '',sigla: ''},
+      {id: 4, descricao: '',sigla: ''},
+      {id: 5, descricao: '',sigla: ''},
+      {id: 6, descricao: '',sigla: ''},
+    ])
   }
 }
 
