@@ -13,9 +13,9 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-class 600ModoPreparoSeeder {
+class ModoPreparoSeeder {
   async run () {
   }
 }
 
-module.exports = 600ModoPreparoSeeder
+module.exports = ModoPreparoSeeder

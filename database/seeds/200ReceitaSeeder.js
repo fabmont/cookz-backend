@@ -13,9 +13,17 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-class 200ReceitaSeeder {
+const Receita = use('App/Models/Receita')
+
+
+class ReceitaSeeder {
   async run () {
+    await Usuario.createMany([{  
+
+      
+    }])
+
   }
 }
 
-module.exports = 200ReceitaSeeder
+module.exports = ReceitaSeeder

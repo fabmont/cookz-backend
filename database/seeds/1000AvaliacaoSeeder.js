@@ -13,9 +13,9 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-class 1000AvaliacaoSeeder {
+class AvaliacaoSeeder {
   async run () {
   }
 }
 
-module.exports = 1000AvaliacaoSeeder
+module.exports = AvaliacaoSeeder
