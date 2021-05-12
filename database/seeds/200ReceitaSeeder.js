@@ -18,8 +18,8 @@ const Receita = use('App/Models/Receita')
 
 class ReceitaSeeder {
   async run () {
-    await Usuario.createMany([{  
-
+    await Receita.createMany([{  
+   // colocar json das receitas aqui
       
     }])
 
