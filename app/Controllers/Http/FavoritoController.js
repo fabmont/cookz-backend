@@ -1,22 +1,46 @@
-'use strict';
+const Favorito = use('App/Models/Favorito') 
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with favoritos
- */
 class FavoritoController {
-  async index({ request, response, view }) {}
 
-  async store({ request, response }) {}
+  async index ({ request, response, view }) {
+    let {page, perPage} = request.all()
+    return Favorito.query().paginate(page, perPage)
+    }
 
-  async show({ params, request, response, view }) {}
+  async store ({ request, response }) {
 
-  async update({ params, request, response }) {}
+    const campos = Favorito.getCamposCadastro()
+    const dados = request.only(campos)
 
-  async destroy({ params, request, response }) {}
+    return await Favorito.create(dados)
+  }
+
+  async show ({ params, request, response, view }) {
+
+    return await Favorito.query()
+                          .where('id', params.id)
+                          .with('')
+                          .first()
+  }
+
+  async update ({ params, request, response }) {
+
+    const favorito = await Favorito.findOrFail(params.id)
+
+    const campos = Favorito.getCamposCadastro()
+    const dados = request.only(campos)
+
+    favorito.merge(dados)
+    await  favorito.save()
+    return favorito
+  }
+
+
+  async destroy ({ params, request, response }) {
+
+    const favorito = await Favorito.findOrFail(params.id)
+    return await favorito.delete();
+  }
 }
 
 module.exports = FavoritoController;
