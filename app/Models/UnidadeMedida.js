@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class UnidadeMedida extends Model {
+    static getCamposCadastro(){
+        return['descricao','sigla']
+}
 }
 
 module.exports = UnidadeMedida
