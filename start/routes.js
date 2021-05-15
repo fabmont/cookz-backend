@@ -16,3 +16,4 @@ Route.group(() => {
 
 Route.resource('/categorias', 'CategoriaController').apiOnly()
 Route.resource('/favoritos', 'FavoritoController').apiOnly()
+Route.resource('/ingredientes', 'IngredienteController').apiOnly()
