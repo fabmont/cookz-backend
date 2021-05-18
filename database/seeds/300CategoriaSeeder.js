@@ -20,12 +20,10 @@ class CategoriaSeeder {
 
     await Categoria.createMany([
       
-      {id: 1, descricao: ''},
-      {id: 2, descricao: ''},
-      {id: 3, descricao: ''},
-      {id: 4, descricao: ''},
-      {id: 5, descricao: ''},
-      {id: 6, descricao: ''},
+      {id: 1, descricao: 'almoço ou janta'},
+      {id: 2, descricao: 'sobremesa'},
+      {id: 3, descricao: 'café da manha ou lanche'},
+      {id: 5, descricao: 'salada'},
     ])
   }
 }

@@ -18,23 +18,164 @@ const Receita = use('App/Models/Receita')
 
 class ReceitaSeeder {
   async run() {
-    await Receita.createMany([{
-      id: "5744eff20ca7832b5c745a48",
-      nome: "Brownie de Chocolate com Gengibre",
-      secao: [{
-        nome: " Ingredientes",
-        conteudo: ["50 g farinha de milho fina", "10 g de cacau em pó", "250 g de chocolate meio amargo", "200 g de manteiga sem sal cortada em cubos", "20 ml de suco de gengibre", "5 ovos", "200 g de açúcar", "1 colher (chá) de fermento em pó", "100 g de nozes picadas grosseiramente", " "]
-      }, {
-        nome: " Modo de Preparo",
-        conteudo: ["1 - Coloque numa tigela a farinha de milho fina e o cacau em pó.", "2 - Misture e reserve.", "3 - Numa panela, em banho-maria, derreta o chocolate meio amargo picado com a manteiga sem sal cortada em cubos.", "4 - Retire do fogo.", "5 - Adicione o suco de gengibre e misture.", "6 - Acrescente a mistura de farinha com cacau em pó (reservada acima). Misture bem e reserve.", "7 - Numa batedeira, coloque os ovos e o açúcar. Bata bem até dobrar de volume.", "8 - Com a batedeira ainda ligada, adicione o fermento em pó e bata até misturar.", "9 - Desligue a batedeira. Acrescente a mistura de chocolate (reservada acima) e as nozes picadas. Misture.", "10 - Transfira a massa para uma assadeira retangular (18 cm X 30 cm) untada e forrada com papel manteiga.", "11 - Leve para assar em forno médio pré-aquecido a 180°C por +/- 40 minutos.", "12 - Retire do forno.", "13 - Cubra o brownie com papel manteiga.", "14 - Coloque outra assadeira do mesmo tamanho pressionando levemente o brownie para que fique mais compacto e úmido", "15 - Deixe por +/- 4 horas na geladeira.", "16 - Retire a assadeira de cima do brownie, desenforme, corte em quadrados e sirva em seguida.", " "]
-      }, {
-        nome: " Outras informações",
-        conteudo: ["Rendimento: 20 porções "]
-      }]
+    await Receita.createMany([ 
+{
+  nome: 'Brownie de Chocolate com Gengibre', 
+  tempo_aprox: 75, 
+  descrição: '',
+  id_usuario: 2, 
+  id_categoria: 2, 
+  id_dificuldade: 1,
+  id_ingredientes: x
+},
+{
 
-    }])
+  nome: 'Peixe Delícia de Olinda',
+  tempo_aprox: 50,
+  descrição: '',
+  id_usuario: 1,
+  id_categoria: 1,
+  id_dificuldade: 2,
+  id_ingredientes:y
 
+},
+
+{
+
+  nome: 'Rosbife',
+  tempo_aprox: 60,
+  descrição: '',
+  id_usuario: 7,
+  id_categoria: 1,
+  id_dificuldade: 4,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Pão Árabe de Micro-ondas',
+  tempo_aprox: 30,
+  descrição: '',
+  id_usuario: 5,
+  id_categoria: 3,
+  id_dificuldade: 1,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Vinagrete de Polvo com Torradas Aromáticas',
+  tempo_aprox: 45,
+  descrição: '',
+  id_usuario: 6,
+  id_categoria: 4,
+  id_dificuldade: 3,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Cestinhas de Churros',
+  tempo_aprox: 40,
+  descrição: '',
+  id_usuario: 3,
+  id_categoria: 2,
+  id_dificuldade: 2,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Dadinhos de Chocolate',
+  tempo_aprox: 65,
+  descrição: '',
+  id_usuario: 4,
+  id_categoria: 2,
+  id_dificuldade: 1,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Bolo de milho verde',
+  tempo_aprox: 60,
+  descrição: '',
+  id_usuario: 2,
+  id_categoria: 3,
+  id_dificuldade: 2,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Sobrecoxa Light',
+  tempo_aprox: 55,
+  descrição: '',
+  id_usuario: 1,
+  id_categoria: 1,
+  id_dificuldade: 2,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Biscoitos de Batata',
+  tempo_aprox: 40,
+  descrição: '',
+  id_usuario: 7,
+  id_categoria: 3,
+  id_dificuldade: 1,
+  id_ingredientes:y
+
+},  
+
+{
+
+  nome: 'Arroz Doce',
+  tempo_aprox: 25,
+  descrição: '',
+  id_usuario: 5,
+  id_categoria: 2,
+  id_dificuldade: 1,
+  id_ingredientes:y
+
+},  
+
+
+{
+
+  nome: 'Mignon Grelhado ao molho',
+  tempo_aprox: 40,
+  descrição: '',
+  id_usuario: 6,
+  id_categoria: 1,
+  id_dificuldade: 4,
+  id_ingredientes:y
+
+},  
+
+
+{
+
+  nome: 'Macarrão de Batata-doce com Legumes e Cogumelos',
+  tempo_aprox: 50,
+  descrição: '',
+  id_usuario: 3,
+  id_categoria: 1,
+  id_dificuldade: 1,
+  id_ingredientes:y
+
+},  
+
+    ])
   }
-}
+ }  
 
 module.exports = ReceitaSeeder

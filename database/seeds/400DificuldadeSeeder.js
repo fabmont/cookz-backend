@@ -19,12 +19,10 @@ class DificuldadeSeeder {
   async run () {
     await Dificuldade.createMany([
       
-      {id: 1, descricao: ''},
-      {id: 2, descricao: ''},
-      {id: 3, descricao: ''},
-      {id: 4, descricao: ''},
-      {id: 5, descricao: ''},
-      {id: 6, descricao: ''},
+      {id: 1, descricao: 'fácil'},
+      {id: 2, descricao: 'médio'},
+      {id: 3, descricao: 'difícil'},
+      {id: 4, descricao: 'muito-difícil'},
     ])
 
   }
