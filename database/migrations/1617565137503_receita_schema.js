@@ -9,7 +9,7 @@ class ReceitaSchema extends Schema {
       table.increments();
       table.string('nome', 30).notNullable();
       table.integer('tempo_aprox').notNullable();
-      table.string('descrição', 300).notNullable();
+      table.string('descrição', 1000).notNullable();
       table
         .integer('id_usuario')
         .references('id')
