@@ -9,7 +9,8 @@ class ReceitaSchema extends Schema {
       table.increments();
       table.string('nome', 30).notNullable();
       table.integer('tempo_aprox').notNullable();
-      table.string('descrição', 300).notNullable();
+      table.string('descricao', 300).notNullable();
+      table.boolean('vegano').notNullable();
       table
         .integer('id_usuario')
         .references('id')
@@ -26,12 +27,6 @@ class ReceitaSchema extends Schema {
         .integer('id_dificuldade')
         .references('id')
         .inTable('dificuldades')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('id_ingredientes')
-        .references('id')
-        .inTable('ingredientes_receitas')
         .unsigned()
         .notNullable();
 
