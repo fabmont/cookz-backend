@@ -12,4 +12,6 @@ Route.post('/cadastrar', 'UsuarioController.store');
 Route.group(() => {
   Route.get('/usuarios', 'UsuarioController.index');
   Route.get('/usuarios/:id', 'UsuarioController.show');
+
+  Route.resource('dificuldades', 'DificuldadeController').apiOnly();
 }).middleware('auth');
