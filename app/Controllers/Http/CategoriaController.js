@@ -7,48 +7,47 @@
 /**
  * Resourceful controller for interacting with categorias
  */
- const Categoria = use('App/Models/Categoria') 
+const Categoria = use('App/Models/Categoria');
 
 class CategoriaController {
+  async index({ request }) {
+    const { page, perPage } = request.all();
 
-  async index ({ request, response, view }) {
-    let {page, perPage} = request.all()
-    return Categoria.query().paginate(page, perPage)
-    }
-
-  async store ({ request, response }) {
-
-    const campos = Categoria.getCamposCadastro()
-    const dados = request.only(campos)
-
-    return await Categoria.create(dados)
+    return Categoria.query().paginate(page, perPage);
   }
 
-  async show ({ params, request, response, view }) {
+  async store({ request }) {
+    const campos = Categoria.getCamposCadastro();
+    const dados = request.only(campos);
 
-    return await Categoria.query()
-                          .where('id', params.id)
-                          .with('')
-                          .first()
+    const categoria = await Categoria.create(dados);
+
+    return categoria;
   }
 
-  async update ({ params, request, response }) {
-
-    const categoria = await Categoria.findOrFail(params.id)
-
-    const campos = Categoria.getCamposCadastro()
-    const dados = request.only(campos)
-
-    categoria.merge(dados)
-    await  categoria.save()
-    return categoria
+  async show({ params }) {
+    return await Categoria.findOrFail(params.id);
   }
-  
 
-  async destroy ({ params, request, response }) {
+  async update({ params, request, response }) {
+    const categoria = await Categoria.findOrFail(params.id);
 
-    const categoria = await Categoria.findOrFail(params.id)
-    return await categoria.delete();
+    const campos = Categoria.getCamposCadastro();
+    const dados = request.only(campos);
+
+    categoria.merge(dados);
+    await categoria.save();
+    return categoria;
+  }
+
+  async destroy({ params }) {
+    const categoria = await Categoria.findOrFail(params.id);
+
+    await categoria.delete();
+
+    return {
+      mensagem: 'Categoria excluída com sucesso.',
+    };
   }
 }
 
