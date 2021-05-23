@@ -14,4 +14,5 @@ Route.group(() => {
   Route.get('/usuarios/:id', 'UsuarioController.show');
 
   Route.resource('/categorias', 'CategoriaController').apiOnly();
+  Route.resource('dificuldades', 'DificuldadeController').apiOnly();
 }).middleware('auth');
