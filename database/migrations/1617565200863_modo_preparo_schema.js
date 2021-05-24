@@ -13,7 +13,8 @@ class ModoPreparoSchema extends Schema {
         .references('id')
         .inTable('receitas')
         .unsigned()
-        .notNullable();
+        .notNullable()
+        .onDelete('CASCADE');
       table.timestamps();
     });
   }

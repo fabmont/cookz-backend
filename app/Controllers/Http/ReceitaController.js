@@ -61,6 +61,12 @@ class ReceitaController {
       .with('categoria', (builder) => {
         builder.select('id', 'descricao');
       })
+      .with('dificuldade', (builder) => {
+        builder.select('id', 'descricao');
+      })
+      .with('modo_preparo', (builder) => {
+        builder.select('id', 'descricao', 'receita_id');
+      })
       .first();
 
     if (!receita) {
