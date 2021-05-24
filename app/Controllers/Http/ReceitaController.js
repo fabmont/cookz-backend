@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Receita = use('App/Models/Receita');
+const ModoPreparo = use('App/Models/ModoPreparo');
 
 /**
  * Resourceful controller for interacting with receitas
@@ -94,6 +95,7 @@ class ReceitaController {
     const receita = await Receita.findOrFail(params.id);
 
     await receita.delete();
+    await ModoPreparo.query().where('receita_id', params.id).delete();
 
     return {
       mensagem: 'Receita excluída com sucesso',
