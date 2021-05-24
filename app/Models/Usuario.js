@@ -7,6 +7,10 @@ const Model = use('Model');
 const Hash = use('Hash');
 
 class Usuario extends Model {
+  static get hidden() {
+    return ['senha'];
+  }
+
   static boot() {
     super.boot();
 
