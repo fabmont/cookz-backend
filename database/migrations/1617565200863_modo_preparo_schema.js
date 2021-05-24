@@ -9,7 +9,7 @@ class ModoPreparoSchema extends Schema {
       table.increments();
       table.string('descricao').notNullable();
       table
-        .integer('id_receita')
+        .integer('receita_id')
         .references('id')
         .inTable('receitas')
         .unsigned()
