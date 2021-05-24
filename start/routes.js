@@ -15,4 +15,5 @@ Route.group(() => {
 
   Route.resource('/categorias', 'CategoriaController').apiOnly();
   Route.resource('dificuldades', 'DificuldadeController').apiOnly();
+  Route.resource('receitas', 'ReceitaController').apiOnly();
 }).middleware('auth');
