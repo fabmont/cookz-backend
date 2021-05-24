@@ -21,7 +21,10 @@ class ModoPreparoController {
   async store({ request }) {
     const { receita_id, lista_instrucoes = [] } = request.all();
 
-    const payload = lista_instrucoes.map((item) => ({ ...item, receita_id }));
+    const payload = lista_instrucoes.map((item) => ({
+      descricao: item,
+      receita_id,
+    }));
 
     const modoPreparo = await ModoPreparo.createMany(payload);
 
