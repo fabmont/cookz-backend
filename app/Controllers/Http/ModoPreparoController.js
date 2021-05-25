@@ -10,9 +10,15 @@ const ModoPreparo = use('App/Models/ModoPreparo');
  * Resourceful controller for interacting with modopreparos
  */
 class ModoPreparoController {
-  async index() {
+  async index({ request }) {
+    const { receita_id } = request.only('receita_id');
+
+    const filtros = {};
+    if (receita_id) filtros.receita_id = receita_id;
+
     const modosPreparo = await ModoPreparo.query()
-      .select('id', 'descricao')
+      .select('id', 'descricao', 'receita_id')
+      .where(filtros)
       .fetch();
 
     return modosPreparo;
@@ -26,16 +32,18 @@ class ModoPreparoController {
       receita_id,
     }));
 
+    await ModoPreparo.query().where('receita_id', receita_id).delete();
+
     const modoPreparo = await ModoPreparo.createMany(payload);
 
     return modoPreparo;
   }
 
-  async show({ params, request, response, view }) {}
+  async show() {}
 
-  async update({ params, request, response }) {}
+  async update() {}
 
-  async destroy({ params, request, response }) {}
+  async destroy() {}
 }
 
 module.exports = ModoPreparoController;
