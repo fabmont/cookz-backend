@@ -1,22 +1,43 @@
-'use strict';
+const Favorito = use('App/Models/Favorito');
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with favoritos
- */
 class FavoritoController {
-  async index({ request, response, view }) {}
+  async index({ request }) {
+    const { page, perPage } = request.all();
 
-  async store({ request, response }) {}
+    return Favorito.query().paginate(page, perPage);
+  }
 
-  async show({ params, request, response, view }) {}
+  async store({ request }) {
+    const campos = Favorito.getCamposCadastro();
+    const dados = request.only(campos);
 
-  async update({ params, request, response }) {}
+    return await Favorito.create(dados);
+  }
 
-  async destroy({ params, request, response }) {}
+  async show({ params }) {
+    return await Favorito.query().where('id', params.id).first();
+  }
+
+  async update({ params, request, response }) {
+    const favorito = await Favorito.findOrFail(params.id);
+
+    const campos = Favorito.getCamposCadastro();
+    const dados = request.only(campos);
+
+    favorito.merge(dados);
+    await favorito.save();
+    return favorito;
+  }
+
+  async destroy({ params }) {
+    const favorito = await Favorito.findOrFail(params.id);
+
+    await favorito.delete();
+
+    return {
+      mensagem: 'Receita desfavoritada com sucesso.',
+    };
+  }
 }
 
 module.exports = FavoritoController;

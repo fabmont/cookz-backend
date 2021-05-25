@@ -38,6 +38,9 @@ class ReceitaController {
       .with('dificuldade', (builder) => {
         builder.select('id', 'descricao');
       })
+      .with('favorito', (builder) => {
+        builder.select('id', 'receita_id');
+      })
       .paginate(page, perPage);
 
     return receita;
@@ -67,6 +70,9 @@ class ReceitaController {
       })
       .with('modo_preparo', (builder) => {
         builder.select('id', 'descricao', 'receita_id');
+      })
+      .with('favorito', (builder) => {
+        builder.select('id', 'receita_id');
       })
       .first();
 

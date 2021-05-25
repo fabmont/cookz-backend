@@ -38,6 +38,10 @@ class Receita extends Model {
   modo_preparo() {
     return this.hasMany('App/Models/ModoPreparo');
   }
+
+  favorito() {
+    return this.hasOne('App/Models/Favorito');
+  }
 }
 
 module.exports = Receita;
