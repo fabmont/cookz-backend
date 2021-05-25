@@ -6,6 +6,7 @@ const Schema = use('Schema');
 class FavoritoSchema extends Schema {
   up() {
     this.create('favoritos', (table) => {
+      table.increments();
       table
         .integer('usuario_id')
         .references('id')

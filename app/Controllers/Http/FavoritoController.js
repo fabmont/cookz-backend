@@ -1,20 +1,21 @@
 const Favorito = use('App/Models/Favorito');
 
 class FavoritoController {
-  async index({ request, response, view }) {
-    let { page, perPage } = request.all();
+  async index({ request }) {
+    const { page, perPage } = request.all();
+
     return Favorito.query().paginate(page, perPage);
   }
 
-  async store({ request, response }) {
+  async store({ request }) {
     const campos = Favorito.getCamposCadastro();
     const dados = request.only(campos);
 
     return await Favorito.create(dados);
   }
 
-  async show({ params, request, response, view }) {
-    return await Favorito.query().where('id', params.id).with('').first();
+  async show({ params }) {
+    return await Favorito.query().where('id', params.id).first();
   }
 
   async update({ params, request, response }) {
@@ -28,9 +29,14 @@ class FavoritoController {
     return favorito;
   }
 
-  async destroy({ params, request, response }) {
+  async destroy({ params }) {
     const favorito = await Favorito.findOrFail(params.id);
-    return await favorito.delete();
+
+    await favorito.delete();
+
+    return {
+      mensagem: 'Receita desfavoritada com sucesso.',
+    };
   }
 }
 
