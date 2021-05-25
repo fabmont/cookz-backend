@@ -9,19 +9,19 @@ class IngredientesReceitaSchema extends Schema {
       table.increments();
       table.integer('quantidade').unsigned().notNullable();
       table
-        .integer('id_receita')
+        .integer('receita_id')
+        .references('id')
+        .inTable('receitas')
+        .unsigned()
+        .notNullable();
+      table
+        .integer('ingrediente_id')
         .references('id')
         .inTable('ingredientes')
         .unsigned()
         .notNullable();
       table
-        .integer('id_ingrediente')
-        .references('id')
-        .inTable('ingredientes')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('id_unidade_medida')
+        .integer('unidade_medida_id')
         .references('id')
         .inTable('unidade_medidas')
         .unsigned()
