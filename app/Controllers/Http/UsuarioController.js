@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Usuario = use('App/Models/Usuario');
+const Favorito = use('App/Models/Favorito');
 class UsuarioController {
   // Login the user inside the platform
   async login({ auth, request }) {
@@ -25,13 +26,8 @@ class UsuarioController {
 
   // Register a new user inside the platform
   async store({ request }) {
-    const params = request.only([
-      'email',
-      'senha',
-      'nome',
-      'uf',
-      'usuarioProfissional',
-    ]);
+    const campos = Usuario.getCamposCadastro();
+    const params = request.only(campos);
 
     const usuarios = await Usuario.create(params);
 
@@ -57,12 +53,30 @@ class UsuarioController {
       });
     }
 
-    const usuarios = await Usuario.query()
-      .select('id', 'nome', 'email', 'created_at')
-      .where('id', id)
-      .first();
+    const usuarios = await Usuario.query().where('id', id).first();
 
     return usuarios;
+  }
+
+  async update({ auth, params, request, response }) {
+    const usuario_id = auth.user.id;
+    const campos = Usuario.getCamposCadastro();
+    const reqParams = request.only(campos);
+
+    if (Number(params.id) !== usuario_id) {
+      console.log(params.id, usuario_id);
+      return response.status(401).send({
+        mensagem: 'Perfis só podem editar seus próprios dados.',
+      });
+    }
+
+    const usuario = await Usuario.findOrFail(params.id);
+
+    usuario.merge(reqParams);
+
+    await usuario.save();
+
+    return usuario;
   }
 }
 
