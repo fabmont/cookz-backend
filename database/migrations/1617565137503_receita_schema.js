@@ -11,6 +11,7 @@ class ReceitaSchema extends Schema {
       table.integer('tempo_preparo').notNullable();
       table.string('descricao', 300).notNullable();
       table.boolean('vegano').notNullable();
+      table.string('imagem_caminho');
       table
         .integer('usuario_id')
         .references('id')

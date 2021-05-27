@@ -6,10 +6,9 @@
 
 const Receita = use('App/Models/Receita');
 const ModoPreparo = use('App/Models/ModoPreparo');
+const Helpers = use('Helpers');
+const fs = require('fs');
 
-/**
- * Resourceful controller for interacting with receitas
- */
 class ReceitaController {
   async index({ request }) {
     const {
@@ -51,7 +50,34 @@ class ReceitaController {
     const params = request.only(campos);
     const usuario_id = auth.user.id;
 
-    const receita = await Receita.create({ ...params, usuario_id });
+    const payload = {
+      ...params,
+      vegano: Boolean(params.vegano),
+      tempo_preparo: Number(params.tempo_preparo),
+      dificuldade_id: Number(params.dificuldade_id),
+      categoria_id: Number(params.categoria_id),
+      usuario_id,
+    };
+
+    const receitaImagem = request.file('imagem', {
+      types: ['image'],
+      size: '2mb',
+    });
+
+    if (receitaImagem) {
+      await receitaImagem.move(Helpers.tmpPath('uploads'), {
+        name: `${Date.now()}_${receitaImagem.clientName}`,
+        overwrite: true,
+      });
+
+      if (!receitaImagem.moved()) {
+        return receitaImagem.error();
+      }
+
+      payload.imagem_caminho = receitaImagem.fileName;
+    }
+
+    const receita = await Receita.create(payload);
 
     return receita;
   }
@@ -87,11 +113,42 @@ class ReceitaController {
 
   async update({ params, request }) {
     const campos = Receita.getCamposCadastro();
-    const bodyParams = request.only(campos);
+    const reqParams = request.only(campos);
 
     const receita = await Receita.findOrFail(params.id);
 
-    receita.merge(bodyParams);
+    const payload = {
+      nome: reqParams.nome || receita.nome,
+      descricao: reqParams.descricao || receita.descricao,
+      vegano: Boolean(reqParams.vegano || receita.vegano),
+      tempo_preparo: Number(reqParams.tempo_preparo || receita.tempo_preparo),
+      dificuldade_id: Number(
+        reqParams.dificuldade_id || receita.dificuldade_id
+      ),
+      categoria_id: Number(reqParams.categoria_id || receita.categoria_id),
+    };
+
+    const receitaImagem = request.file('imagem', {
+      types: ['image'],
+      size: '2mb',
+    });
+
+    if (receitaImagem) {
+      await receitaImagem.move(Helpers.tmpPath('uploads'), {
+        name:
+          receita.imagem_caminho || `${Date.now()}_${receitaImagem.clientName}`,
+        overwrite: true,
+      });
+
+      if (!receitaImagem.moved()) {
+        return receitaImagem.error();
+      }
+
+      payload.imagem_caminho = receitaImagem.fileName;
+    }
+
+    receita.merge(payload);
+
     await receita.save();
 
     return receita;
@@ -99,6 +156,10 @@ class ReceitaController {
 
   async destroy({ params }) {
     const receita = await Receita.findOrFail(params.id);
+
+    if (receita.imagem_caminho) {
+      fs.unlinkSync(`${Helpers.tmpPath('uploads')}/${receita.imagem_caminho}`);
+    }
 
     await receita.delete();
     await ModoPreparo.query().where('receita_id', params.id).delete();

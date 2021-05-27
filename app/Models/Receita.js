@@ -2,6 +2,7 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model');
+const Helpers = use('Helpers');
 
 class Receita extends Model {
   static getCamposCadastro() {
@@ -9,6 +10,7 @@ class Receita extends Model {
       'nome',
       'tempo_preparo',
       'descricao',
+      'imagem',
       'vegano',
       'dificuldade_id',
       'categoria_id',
@@ -21,6 +23,14 @@ class Receita extends Model {
 
   getVegano(value) {
     return Boolean(value);
+  }
+
+  getImagemCaminho(value) {
+    if (!value) {
+      return null;
+    }
+
+    return `${Helpers.tmpPath('uploads')}/${value}`;
   }
 
   usuario() {
