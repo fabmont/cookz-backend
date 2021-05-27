@@ -28,18 +28,10 @@ class ReceitaController {
 
     const receita = await Receita.query()
       .where(filters)
-      .with('usuario', (builder) => {
-        builder.select('id', 'nome');
-      })
-      .with('categoria', (builder) => {
-        builder.select('id', 'descricao');
-      })
-      .with('dificuldade', (builder) => {
-        builder.select('id', 'descricao');
-      })
-      .with('favorito', (builder) => {
-        builder.select('id', 'receita_id');
-      })
+      .with('usuario')
+      .with('categoria')
+      .with('dificuldade')
+      .with('favorito')
       .paginate(page, perPage);
 
     return receita;
@@ -85,21 +77,11 @@ class ReceitaController {
   async show({ params, response }) {
     const receita = await Receita.query()
       .where('id', params.id)
-      .with('usuario', (builder) => {
-        builder.select('id', 'nome', 'email');
-      })
-      .with('categoria', (builder) => {
-        builder.select('id', 'descricao');
-      })
-      .with('dificuldade', (builder) => {
-        builder.select('id', 'descricao');
-      })
-      .with('modo_preparo', (builder) => {
-        builder.select('id', 'descricao', 'receita_id');
-      })
-      .with('favorito', (builder) => {
-        builder.select('id', 'receita_id');
-      })
+      .with('usuario')
+      .with('categoria')
+      .with('dificuldade')
+      .with('modo_preparo')
+      .with('favorito')
       .first();
 
     if (!receita) {

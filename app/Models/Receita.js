@@ -34,23 +34,27 @@ class Receita extends Model {
   }
 
   usuario() {
-    return this.belongsTo('App/Models/Usuario');
+    return this.belongsTo('App/Models/Usuario').select('id', 'nome');
   }
 
   categoria() {
-    return this.belongsTo('App/Models/Categoria');
+    return this.belongsTo('App/Models/Categoria').select('id', 'descricao');
   }
 
   dificuldade() {
-    return this.belongsTo('App/Models/Dificuldade');
+    return this.belongsTo('App/Models/Dificuldade').select('id', 'descricao');
   }
 
   modo_preparo() {
-    return this.hasMany('App/Models/ModoPreparo');
+    return this.hasMany('App/Models/ModoPreparo').select(
+      'id',
+      'descricao',
+      'receita_id'
+    );
   }
 
   favorito() {
-    return this.hasOne('App/Models/Favorito');
+    return this.hasOne('App/Models/Favorito').select('id', 'receita_id');
   }
 }
 
