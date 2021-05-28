@@ -19,4 +19,5 @@ Route.group(() => {
   Route.resource('receitas', 'ReceitaController').apiOnly();
   Route.resource('modos_preparo', 'ModoPreparoController').apiOnly();
   Route.resource('/favoritos', 'FavoritoController').apiOnly();
+  Route.put('/favoritar', 'FavoritoController.favoritar');
 }).middleware('auth');

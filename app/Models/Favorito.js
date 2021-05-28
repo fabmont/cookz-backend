@@ -5,7 +5,13 @@ const Model = use('Model');
 
 class Favorito extends Model {
   static getCamposCadastro() {
-    return ['usuario_id', 'receita_id'];
+    return ['receita_id'];
+  }
+
+  receita() {
+    return this.belongsTo('App/Models/Receita')
+      .with('categoria')
+      .with('dificuldade');
   }
 }
 
