@@ -13,7 +13,7 @@ class CategoriaController {
   async index({ request }) {
     const { page, perPage } = request.all();
 
-    return Categoria.query().paginate(page, perPage);
+    return Categoria.query().select('id', 'descricao').paginate(page, perPage);
   }
 
   async store({ request }) {
@@ -29,7 +29,7 @@ class CategoriaController {
     return await Categoria.findOrFail(params.id);
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
     const categoria = await Categoria.findOrFail(params.id);
 
     const campos = Categoria.getCamposCadastro();

@@ -27,11 +27,20 @@ class ReceitaController {
     if (dificuldade_id) filters.dificuldade_id = dificuldade_id;
 
     const receita = await Receita.query()
+      .select(
+        'id',
+        'nome',
+        'tempo_preparo',
+        'vegano',
+        'imagem_caminho',
+        'usuario_id',
+        'categoria_id',
+        'dificuldade_id'
+      )
       .where(filters)
       .with('usuario')
       .with('categoria')
       .with('dificuldade')
-      .with('favorito')
       .paginate(page, perPage);
 
     return receita;
@@ -81,7 +90,6 @@ class ReceitaController {
       .with('categoria')
       .with('dificuldade')
       .with('modo_preparo')
-      .with('favorito')
       .first();
 
     if (!receita) {

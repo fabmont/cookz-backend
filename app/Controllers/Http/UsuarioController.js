@@ -18,7 +18,7 @@ class UsuarioController {
   // Get all the registered users
   async index() {
     const usuarios = await Usuario.query()
-      .select('id', 'nome', 'email')
+      .select('id', 'nome', 'email', 'usuarioProfissional')
       .fetch();
 
     return usuarios;

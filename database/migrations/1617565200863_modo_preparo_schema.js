@@ -7,7 +7,7 @@ class ModoPreparoSchema extends Schema {
   up() {
     this.create('modo_preparos', (table) => {
       table.increments();
-      table.string('descricao').notNullable();
+      table.string('descricao',2200).notNullable();
       table
         .integer('receita_id')
         .references('id')
