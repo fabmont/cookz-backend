@@ -52,10 +52,6 @@ class Receita extends Model {
       'receita_id'
     );
   }
-
-  favorito() {
-    return this.hasOne('App/Models/Favorito').select('id', 'receita_id');
-  }
 }
 
 module.exports = Receita;
