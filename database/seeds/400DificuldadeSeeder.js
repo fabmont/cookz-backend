@@ -1,31 +1,18 @@
-'use strict'
-
-/*
-|--------------------------------------------------------------------------
-| 400DificuldadeSeeder
-|--------------------------------------------------------------------------
-|
-| Make use of the Factory instance to seed database with dummy data or
-| make use of Lucid models directly.
-|
-*/
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
 
-const Dificuldade = use('App/Models/Dificuldade')
+const Dificuldade = use('App/Models/Dificuldade');
 
 class DificuldadeSeeder {
-  async run () {
+  async run() {
     await Dificuldade.createMany([
-      
-      {id: 1, descricao: 'fácil'},
-      {id: 2, descricao: 'médio'},
-      {id: 3, descricao: 'difícil'},
-      {id: 4, descricao: 'muito-difícil'},
-    ])
-
+      { descricao: 'Fácil' },
+      { descricao: 'Médio' },
+      { descricao: 'Difícil' },
+      { descricao: 'Profissional' },
+    ]);
   }
 }
 
-module.exports = DificuldadeSeeder
+module.exports = DificuldadeSeeder;

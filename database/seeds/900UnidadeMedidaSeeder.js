@@ -1,33 +1,20 @@
-'use strict'
-
-/*
-|--------------------------------------------------------------------------
-| 900UnidadeMedidaSeeder
-|--------------------------------------------------------------------------
-|
-| Make use of the Factory instance to seed database with dummy data or
-| make use of Lucid models directly.
-|
-*/
+'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
 
-const UnidadeMedida = use('App/Models/UnidadeMedida')
-
+const UnidadeMedida = use('App/Models/UnidadeMedida');
 
 class UnidadeMedidaSeeder {
-  async run () {
-
+  async run() {
     await UnidadeMedida.createMany([
-      {id: 1, descricao: '',sigla: ''},
-      {id: 2, descricao: '',sigla: ''},
-      {id: 3, descricao: '',sigla: ''},
-      {id: 4, descricao: '',sigla: ''},
-      {id: 5, descricao: '',sigla: ''},
-      {id: 6, descricao: '',sigla: ''},
-    ])
+      { descricao: 'Miligrama', sigla: 'mg' },
+      { descricao: 'Grama', sigla: 'g' },
+      { descricao: 'Kilograma', sigla: 'kg' },
+      { descricao: 'Tonelada', sigla: 't' },
+      { descricao: 'Mililitro', sigla: 'ml' },
+      { descricao: 'Litro', sigla: 'l' },
+    ]);
   }
 }
 
-module.exports = UnidadeMedidaSeeder
+module.exports = UnidadeMedidaSeeder;
