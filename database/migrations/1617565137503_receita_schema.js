@@ -8,30 +8,26 @@ class ReceitaSchema extends Schema {
     this.create('receitas', (table) => {
       table.increments();
       table.string('nome', 30).notNullable();
-      table.integer('tempo_aprox').notNullable();
-      table.string('descrição', 1000).notNullable();
+      table.integer('tempo_preparo').notNullable();
+      table.string('descricao', 300).notNullable();
+      table.boolean('vegano').notNullable();
+      table.string('imagem_caminho');
       table
-        .integer('id_usuario')
+        .integer('usuario_id')
         .references('id')
         .inTable('usuarios')
         .unsigned()
         .notNullable();
       table
-        .integer('id_categoria')
+        .integer('categoria_id')
         .references('id')
         .inTable('categorias')
         .unsigned()
         .notNullable();
       table
-        .integer('id_dificuldade')
+        .integer('dificuldade_id')
         .references('id')
         .inTable('dificuldades')
-        .unsigned()
-        .notNullable();
-      table
-        .integer('id_ingredientes')
-        .references('id')
-        .inTable('ingredientes_receitas')
         .unsigned()
         .notNullable();
 

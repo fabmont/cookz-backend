@@ -12,4 +12,12 @@ Route.post('/cadastrar', 'UsuarioController.store');
 Route.group(() => {
   Route.get('/usuarios', 'UsuarioController.index');
   Route.get('/usuarios/:id', 'UsuarioController.show');
+  Route.put('/usuarios/:id', 'UsuarioController.update');
+
+  Route.resource('/categorias', 'CategoriaController').apiOnly();
+  Route.resource('dificuldades', 'DificuldadeController').apiOnly();
+  Route.resource('receitas', 'ReceitaController').apiOnly();
+  Route.resource('modos_preparo', 'ModoPreparoController').apiOnly();
+  Route.resource('/favoritos', 'FavoritoController').apiOnly();
+  Route.put('/favoritar', 'FavoritoController.favoritar');
 }).middleware('auth');

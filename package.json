@@ -5,6 +5,7 @@
   "description": "API do Cookz para compartilhamento de receitas entre usuarios",
   "main": "index.js",
   "scripts": {
+    "dev": "adonis serve --dev",
     "start": "node server.js",
     "test": "node ace test",
     "commit": "git-cz"

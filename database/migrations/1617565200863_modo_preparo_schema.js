@@ -9,11 +9,12 @@ class ModoPreparoSchema extends Schema {
       table.increments();
       table.string('descricao',2200).notNullable();
       table
-        .integer('id_receita')
+        .integer('receita_id')
         .references('id')
         .inTable('receitas')
         .unsigned()
-        .notNullable();
+        .notNullable()
+        .onDelete('CASCADE');
       table.timestamps();
     });
   }

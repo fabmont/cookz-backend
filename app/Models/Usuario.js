@@ -7,6 +7,10 @@ const Model = use('Model');
 const Hash = use('Hash');
 
 class Usuario extends Model {
+  static get hidden() {
+    return ['senha'];
+  }
+
   static boot() {
     super.boot();
 
@@ -17,8 +21,26 @@ class Usuario extends Model {
     });
   }
 
+  static getCamposCadastro() {
+    return ['email', 'senha', 'nome', 'uf', 'usuarioProfissional'];
+  }
+
+  getUsuarioProfissional(value) {
+    return Boolean(value);
+  }
+
   tokens() {
     return this.hasMany('App/Models/Token');
+  }
+
+  receitas() {
+    return this.hasMany('App/Models/Receita');
+  }
+
+  favoritos() {
+    return this.hasMany('App/Models/Favorito')
+      .select('id', 'usuario_id', 'receita_id')
+      .with('receita');
   }
 }
 

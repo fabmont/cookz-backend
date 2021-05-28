@@ -1,22 +1,46 @@
-'use strict';
+const Favorito = use('App/Models/Favorito');
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with favoritos
- */
 class FavoritoController {
-  async index({ request, response, view }) {}
+  async index({ auth, request }) {
+    const usuario_id = auth.user.id;
+    const { page, perPage = 10 } = request.all();
 
-  async store({ request, response }) {}
+    return Favorito.query()
+      .select('id', 'usuario_id', 'receita_id')
+      .where({ usuario_id })
+      .with('receita')
+      .paginate(page, perPage);
+  }
 
-  async show({ params, request, response, view }) {}
+  async favoritar({ auth, request }) {
+    const usuario_id = auth.user.id;
+    const { is_favorito, receita_id } = request.only([
+      'is_favorito',
+      'receita_id',
+    ]);
 
-  async update({ params, request, response }) {}
+    const favorito = await Favorito.query()
+      .where({ usuario_id, receita_id })
+      .first();
 
-  async destroy({ params, request, response }) {}
+    if (favorito) {
+      if (is_favorito === false) {
+        await favorito.delete();
+
+        return {
+          mensagem: 'Receita desfavoritada com sucesso.',
+        };
+      }
+
+      return null;
+    } else {
+      if (is_favorito) {
+        return await Favorito.create({ receita_id, usuario_id });
+      }
+
+      return null;
+    }
+  }
 }
 
 module.exports = FavoritoController;
