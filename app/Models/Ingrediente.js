@@ -7,6 +7,16 @@ class Ingrediente extends Model {
   static getCamposCadastro() {
     return ['nome'];
   }
+
+  receitas() {
+    return this.belongsToMany('App/Models/Receita').pivotTable(
+      'ingredientes_receitas'
+    );
+  }
+
+  unidadeMedidas() {
+    return this.belongsTo('App/Models/UnidadeMedida');
+  }
 }
 
 module.exports = Ingrediente;

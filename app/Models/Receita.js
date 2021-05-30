@@ -52,6 +52,13 @@ class Receita extends Model {
       'receita_id'
     );
   }
+
+  ingredientes() {
+    return this.belongsToMany('App/Models/Ingrediente')
+      .pivotModel('App/Models/IngredientesReceita')
+      .withPivot(['quantidade', 'unidade_medida_id'])
+      .select('id', 'nome');
+  }
 }
 
 module.exports = Receita;

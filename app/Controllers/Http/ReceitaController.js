@@ -90,6 +90,7 @@ class ReceitaController {
       .with('categoria')
       .with('dificuldade')
       .with('modo_preparo')
+      .with('ingredientes')
       .first();
 
     if (!receita) {
