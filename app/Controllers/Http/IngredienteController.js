@@ -34,7 +34,11 @@ class IngredienteController {
   async destroy({ params }) {
     const ingrediente = await Ingrediente.findOrFail(params.id);
 
-    return await ingrediente.delete();
+    await ingrediente.delete();
+
+    return {
+      mensagem: 'Ingrediente excluído com sucesso.',
+    };
   }
 }
 
