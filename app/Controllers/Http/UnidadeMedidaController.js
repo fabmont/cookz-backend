@@ -38,7 +38,7 @@ class UnidadeMedidaController {
     await unidademedida.delete();
 
     return {
-      mesangem: 'Unidade de medida excluída com sucesso.',
+      mensangem: 'Unidade de medida excluída com sucesso.',
     };
   }
 }
