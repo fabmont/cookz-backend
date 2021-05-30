@@ -1,45 +1,45 @@
-const UnidadeMedida = use('App/Models/UnidadeMedida') 
+const UnidadeMedida = use('App/Models/UnidadeMedida');
 
 class UnidadeMedidaController {
-
-  async index ({ request, response, view }) {
-    let {page, perPage} = request.all()
-    return UnidadeMedida.query().paginate(page, perPage)
-    }
-
-  async store ({ request, response }) {
-
-    const campos = UnidadeMedida.getCamposCadastro()
-    const dados = request.only(campos)
-
-    return await UnidadeMedida.create(dados)
+  async index({ request }) {
+    let { page, perPage = 10 } = request.all();
+    return UnidadeMedida.query()
+      .select('id', 'descricao', 'sigla')
+      .paginate(page, perPage);
   }
 
-  async show ({ params, request, response, view }) {
+  async store({ request }) {
+    const campos = UnidadeMedida.getCamposCadastro();
+    const dados = request.only(campos);
 
-    return await UnidadeMedida.query()
-                          .where('id', params.id)
-                          .with('')
-                          .first()
+    return await UnidadeMedida.create(dados);
   }
 
-  async update ({ params, request, response }) {
-
-    const unidademedida = await UnidadeMedida.findOrFail(params.id)
-
-    const campos = UnidadeMedida.getCamposCadastro()
-    const dados = request.only(campos)
-
-    unidademedida.merge(dados)
-    await  unidademedida.save()
-    return unidademedida
+  async show({ params }) {
+    return await UnidadeMedida.findOrFail(params.id);
   }
 
+  async update({ params, request }) {
+    const unidademedida = await UnidadeMedida.findOrFail(params.id);
 
-  async destroy ({ params, request, response }) {
+    const campos = UnidadeMedida.getCamposCadastro();
+    const dados = request.only(campos);
 
-    const unidademedida = await UnidadeMedida.findOrFail(params.id)
-    return await unidademedida.delete();
+    unidademedida.merge(dados);
+
+    await unidademedida.save();
+
+    return unidademedida;
+  }
+
+  async destroy({ params }) {
+    const unidademedida = await UnidadeMedida.findOrFail(params.id);
+
+    await unidademedida.delete();
+
+    return {
+      mesangem: 'Unidade de medida excluída com sucesso.',
+    };
   }
 }
 
