@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Ingrediente extends Model {
+    static getCamposCadastro(){
+        return['nome']
+}
 }
 
 module.exports = Ingrediente

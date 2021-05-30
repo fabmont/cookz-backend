@@ -1,22 +1,46 @@
-'use strict';
+const UnidadeMedida = use('App/Models/UnidadeMedida');
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with unidademedidas
- */
 class UnidadeMedidaController {
-  async index({ request, response, view }) {}
+  async index({ request }) {
+    let { page, perPage = 10 } = request.all();
+    return UnidadeMedida.query()
+      .select('id', 'descricao', 'sigla')
+      .paginate(page, perPage);
+  }
 
-  async store({ request, response }) {}
+  async store({ request }) {
+    const campos = UnidadeMedida.getCamposCadastro();
+    const dados = request.only(campos);
 
-  async show({ params, request, response, view }) {}
+    return await UnidadeMedida.create(dados);
+  }
 
-  async update({ params, request, response }) {}
+  async show({ params }) {
+    return await UnidadeMedida.findOrFail(params.id);
+  }
 
-  async destroy({ params, request, response }) {}
+  async update({ params, request }) {
+    const unidademedida = await UnidadeMedida.findOrFail(params.id);
+
+    const campos = UnidadeMedida.getCamposCadastro();
+    const dados = request.only(campos);
+
+    unidademedida.merge(dados);
+
+    await unidademedida.save();
+
+    return unidademedida;
+  }
+
+  async destroy({ params }) {
+    const unidademedida = await UnidadeMedida.findOrFail(params.id);
+
+    await unidademedida.delete();
+
+    return {
+      mensangem: 'Unidade de medida excluída com sucesso.',
+    };
+  }
 }
 
 module.exports = UnidadeMedidaController;

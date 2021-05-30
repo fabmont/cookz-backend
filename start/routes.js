@@ -15,9 +15,11 @@ Route.group(() => {
   Route.put('/usuarios/:id', 'UsuarioController.update');
 
   Route.resource('/categorias', 'CategoriaController').apiOnly();
-  Route.resource('dificuldades', 'DificuldadeController').apiOnly();
-  Route.resource('receitas', 'ReceitaController').apiOnly();
-  Route.resource('modos_preparo', 'ModoPreparoController').apiOnly();
+  Route.resource('/dificuldades', 'DificuldadeController').apiOnly();
+  Route.resource('/receitas', 'ReceitaController').apiOnly();
+  Route.resource('/unidade_medidas', 'UnidadeMedidaController').apiOnly();
+  Route.resource('/ingredientes', 'IngredienteController').apiOnly();
+  Route.resource('/modos_preparo', 'ModoPreparoController').apiOnly();
   Route.resource('/favoritos', 'FavoritoController').apiOnly();
   Route.put('/favoritar', 'FavoritoController.favoritar');
 }).middleware('auth');
