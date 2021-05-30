@@ -1,44 +1,39 @@
-const Ingrediente = use('App/Models/Ingrediente') 
+const Ingrediente = use('App/Models/Ingrediente');
 
 class IngredienteController {
+  async index({ request }) {
+    const { page, perPage = 10 } = request.all();
 
-  async index ({ request, response, view }) {
-    let {page, perPage} = request.all()
-    return Ingrediente.query().paginate(page, perPage)
-    }
-
-  async store ({ request, response }) {
-
-    const campos = Ingrediente.getCamposCadastro()
-    const dados = request.only(campos)
-
-    return await Ingrediente.create(dados)
+    return Ingrediente.query().select('id', 'nome').paginate(page, perPage);
   }
 
-  async show ({ params, request, response, view }) {
+  async store({ request }) {
+    const campos = Ingrediente.getCamposCadastro();
+    const dados = request.only(campos);
 
-    return await Ingrediente.query()
-                          .where('id', params.id)
-                          .with('')
-                          .first()
+    return await Ingrediente.create(dados);
   }
 
-  async update ({ params, request, response }) {
-
-    const ingrediente = await Ingrediente.findOrFail(params.id)
-
-    const campos = Ingrediente.getCamposCadastro()
-    const dados = request.only(campos)
-
-    ingrediente.merge(dados)
-    await  ingrediente.save()
-    return ingrediente
+  async show({ params }) {
+    return await Ingrediente.findOrFail(params.id);
   }
 
+  async update({ params, request }) {
+    const ingrediente = await Ingrediente.findOrFail(params.id);
 
-  async destroy ({ params, request, response }) {
+    const campos = Ingrediente.getCamposCadastro();
+    const dados = request.only(campos);
 
-    const ingrediente = await Ingrediente.findOrFail(params.id)
+    ingrediente.merge(dados);
+
+    await ingrediente.save();
+
+    return ingrediente;
+  }
+
+  async destroy({ params }) {
+    const ingrediente = await Ingrediente.findOrFail(params.id);
+
     return await ingrediente.delete();
   }
 }
