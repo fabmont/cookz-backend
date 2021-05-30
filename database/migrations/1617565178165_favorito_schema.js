@@ -6,14 +6,15 @@ const Schema = use('Schema');
 class FavoritoSchema extends Schema {
   up() {
     this.create('favoritos', (table) => {
+      table.increments();
       table
-        .integer('id_usuario')
+        .integer('usuario_id')
         .references('id')
         .inTable('usuarios')
         .unsigned()
         .notNullable();
       table
-        .integer('id_receita')
+        .integer('receita_id')
         .references('id')
         .inTable('receitas')
         .unsigned()

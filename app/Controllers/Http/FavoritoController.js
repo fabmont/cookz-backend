@@ -1,45 +1,45 @@
-const Favorito = use('App/Models/Favorito') 
+const Favorito = use('App/Models/Favorito');
 
 class FavoritoController {
+  async index({ auth, request }) {
+    const usuario_id = auth.user.id;
+    const { page, perPage = 10 } = request.all();
 
-  async index ({ request, response, view }) {
-    let {page, perPage} = request.all()
-    return Favorito.query().paginate(page, perPage)
+    return Favorito.query()
+      .select('id', 'usuario_id', 'receita_id')
+      .where({ usuario_id })
+      .with('receita')
+      .paginate(page, perPage);
+  }
+
+  async favoritar({ auth, request }) {
+    const usuario_id = auth.user.id;
+    const { is_favorito, receita_id } = request.only([
+      'is_favorito',
+      'receita_id',
+    ]);
+
+    const favorito = await Favorito.query()
+      .where({ usuario_id, receita_id })
+      .first();
+
+    if (favorito) {
+      if (is_favorito === false) {
+        await favorito.delete();
+
+        return {
+          mensagem: 'Receita desfavoritada com sucesso.',
+        };
+      }
+
+      return null;
+    } else {
+      if (is_favorito) {
+        return await Favorito.create({ receita_id, usuario_id });
+      }
+
+      return null;
     }
-
-  async store ({ request, response }) {
-
-    const campos = Favorito.getCamposCadastro()
-    const dados = request.only(campos)
-
-    return await Favorito.create(dados)
-  }
-
-  async show ({ params, request, response, view }) {
-
-    return await Favorito.query()
-                          .where('id', params.id)
-                          .with('')
-                          .first()
-  }
-
-  async update ({ params, request, response }) {
-
-    const favorito = await Favorito.findOrFail(params.id)
-
-    const campos = Favorito.getCamposCadastro()
-    const dados = request.only(campos)
-
-    favorito.merge(dados)
-    await  favorito.save()
-    return favorito
-  }
-
-
-  async destroy ({ params, request, response }) {
-
-    const favorito = await Favorito.findOrFail(params.id)
-    return await favorito.delete();
   }
 }
 
