@@ -1,7 +1,7 @@
 'use strict';
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-
+const Favorito = use('App/Models/Favorito');
 class FavoritoSeeder {
   async run() {
     await Favorito.createMany([
