@@ -4,6 +4,9 @@
 const Model = use('Model');
 
 class Avaliacao extends Model {
+  static getCampoAvaliação(){
+    return ['comentario', 'nota','usuario_id','receita_id']
+  }
   static get table() {
     return 'avaliacoes';
   }
