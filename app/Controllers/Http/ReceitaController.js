@@ -115,11 +115,18 @@ class ReceitaController {
     return receita;
   }
 
-  async update({ params, request }) {
+  async update({ auth, params, request, response }) {
+    const usuarioLogado = auth.user.id;
     const campos = Receita.getCamposCadastro();
     const reqParams = request.only(campos);
 
     const receita = await Receita.findOrFail(params.id);
+
+    if (receita.usuario_id !== usuarioLogado) {
+      return response.status(401).send({
+        mensagem: 'Você não pode editar uma receita de outro usuário.',
+      });
+    }
 
     const payload = {
       nome: reqParams.nome || receita.nome,
