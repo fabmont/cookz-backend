@@ -59,6 +59,9 @@ class ReceitaController {
       categoria_id: Number(params.categoria_id),
       usuario_id,
     };
+    delete payload.ingredientes;
+    const ingredientes = JSON.parse(params.ingredientes);
+    const ingredientesIds = ingredientes.map((item) => item.ingrediente_id);
 
     const receitaImagem = request.file('imagem', {
       types: ['image'],
@@ -79,6 +82,16 @@ class ReceitaController {
     }
 
     const receita = await Receita.create(payload);
+
+    if (ingredientes && ingredientes.length > 0) {
+      let index = 0;
+      await receita.ingredientes().attach(ingredientesIds, (row) => {
+        row.unidade_medida_id = ingredientes[index].unidade_medida_id;
+        row.quantidade = ingredientes[index].quantidade;
+      });
+
+      receita.ingredientes = await receita.ingredientes().fetch();
+    }
 
     return receita;
   }
@@ -118,6 +131,9 @@ class ReceitaController {
       ),
       categoria_id: Number(reqParams.categoria_id || receita.categoria_id),
     };
+    delete payload.ingredientes;
+    const ingredientes = JSON.parse(reqParams.ingredientes);
+    const ingredientesIds = ingredientes.map((item) => item.ingrediente_id);
 
     const receitaImagem = request.file('imagem', {
       types: ['image'],
@@ -141,6 +157,21 @@ class ReceitaController {
     receita.merge(payload);
 
     await receita.save();
+
+    if (ingredientes && ingredientes.length > 0) {
+      let index = 0;
+
+      await receita.ingredientes().detach();
+
+      await receita.ingredientes().attach(ingredientesIds, (row) => {
+        row.unidade_medida_id = ingredientes[index].unidade_medida_id;
+        row.quantidade = ingredientes[index].quantidade;
+      });
+
+      receita.ingredientes = await receita.ingredientes().fetch();
+
+      receita.ingredientes = await receita.ingredientes().fetch();
+    }
 
     return receita;
   }

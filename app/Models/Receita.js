@@ -14,6 +14,7 @@ class Receita extends Model {
       'vegano',
       'dificuldade_id',
       'categoria_id',
+      'ingredientes',
     ];
   }
 

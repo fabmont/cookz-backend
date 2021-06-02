@@ -18,7 +18,7 @@ class AvaliacaoController {
     if (receita_id) filters.receita_id = receita_id;
 
     return Avaliacao.query()
-      .select('id', 'comentario', 'nota', 'usuario_id')
+      .select('id', 'comentario', 'nota', 'usuario_id', 'receita_id')
       .where(filters)
       .with('usuario')
       .paginate(page, perPage);
