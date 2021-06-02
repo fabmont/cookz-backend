@@ -22,4 +22,5 @@ Route.group(() => {
   Route.resource('/modos_preparo', 'ModoPreparoController').apiOnly();
   Route.resource('/favoritos', 'FavoritoController').apiOnly();
   Route.put('/favoritar', 'FavoritoController.favoritar');
+  Route.resource('/avaliacoes', 'AvaliacaoController').apiOnly();
 }).middleware('auth');
