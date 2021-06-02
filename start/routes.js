@@ -4,8 +4,10 @@
 const Route = use('Route');
 
 // Rotas públicas, requisições sem token válido poderão acessá-las
-Route.post('/login', 'UsuarioController.login');
-Route.post('/cadastrar', 'UsuarioController.store');
+Route.post('/login', 'UsuarioController.login').validator('UsuarioLogin');
+Route.post('/cadastrar', 'UsuarioController.store').validator(
+  'UsuarioRegistro'
+);
 
 // Rotas que precisam de autenticação
 // Caso uma requisição seja feita pra os endpoints abaixo sem um token válido, a requsição será rejeitada.
