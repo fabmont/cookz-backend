@@ -4,11 +4,15 @@
 const Model = use('Model');
 
 class Avaliacao extends Model {
-  static getCampoAvaliação(){
-    return ['comentario', 'nota','usuario_id','receita_id']
+  static getCampoAvaliacao() {
+    return ['comentario', 'nota', 'receita_id'];
   }
   static get table() {
     return 'avaliacoes';
+  }
+
+  usuario() {
+    return this.belongsTo('App/Models/Usuario').select('id', 'nome', 'email');
   }
 }
 

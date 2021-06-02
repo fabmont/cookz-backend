@@ -7,33 +7,46 @@
 /**
  * Resourceful controller for interacting with avaliacaos
  */
-const Avaliação = use('App/Models/Avaliação')
+const Avaliacao = use('App/Models/Avaliacao');
 class AvaliacaoController {
-  async index({ request, response, view }) {
-    let {page, perPage} = request.all()
-    perPage = perPage ? perPage : 5
-    return Avaliação.query().paginate(page, perPage)
+  async index({ request }) {
+    const { page, perPage = 10, receita_id, user_id } = request.all();
+
+    const filters = {};
+
+    if (user_id) filters.user_id = user_id;
+    if (receita_id) filters.receita_id = receita_id;
+
+    return Avaliacao.query()
+      .select('id', 'comentario', 'nota', 'usuario_id')
+      .where(filters)
+      .with('usuario')
+      .paginate(page, perPage);
   }
 
-  async store({ request, response }) {
-    const campos = Avaliação.getCampoAvaliação() 
-    const avaliacoes = request.only(campos) 
-    return await Avaliação.create(avaliacoes)
+  async store({ auth, request }) {
+    const usuarioLogado = auth.user.id;
+    const campos = Avaliacao.getCampoAvaliacao();
+    const avaliacoes = request.only(campos);
+
+    return await Avaliacao.create({ ...avaliacoes, usuario_id: usuarioLogado });
   }
 
-  async show({ params, request, response, view }) {return await Avaliação.findOrFail(params.id)}
-
-  async update({ params, request, response }) {
-    const avaliacao = await Avaliação.findOrFail(params.id)
-    const campos = Avaliação.getCampoAvaliação()
-    const dados = request.only(campos)
-    avaliacao.merge(dados) 
-    await avaliacao.save() 
-    return avaliacao
+  async show({ params }) {
+    return await Avaliacao.findOrFail(params.id);
   }
 
-  async destroy({ params, request, response }) {
-    const avaliacao = await Avaliação.findOrFail(params.id)
+  async update({ params, request }) {
+    const avaliacao = await Avaliacao.findOrFail(params.id);
+    const campos = Avaliacao.getCampoAvaliacao();
+    const dados = request.only(campos);
+    avaliacao.merge(dados);
+    await avaliacao.save();
+    return avaliacao;
+  }
+
+  async destroy({ params }) {
+    const avaliacao = await Avaliacao.findOrFail(params.id);
     return await avaliacao.delete();
   }
 }

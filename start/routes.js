@@ -9,7 +9,7 @@ Route.post('/cadastrar', 'UsuarioController.store');
 
 // Rotas que precisam de autenticação
 // Caso uma requisição seja feita pra os endpoints abaixo sem um token válido, a requsição será rejeitada.
-/*Route.group(() => {
+Route.group(() => {
   Route.get('/usuarios', 'UsuarioController.index');
   Route.get('/usuarios/:id', 'UsuarioController.show');
   Route.put('/usuarios/:id', 'UsuarioController.update');
@@ -22,7 +22,5 @@ Route.post('/cadastrar', 'UsuarioController.store');
   Route.resource('/modos_preparo', 'ModoPreparoController').apiOnly();
   Route.resource('/favoritos', 'FavoritoController').apiOnly();
   Route.put('/favoritar', 'FavoritoController.favoritar');
-}).middleware('auth');*/
-Route.resource('/avaliação', 'AvaliaçãoController').apiOnly();
-Route.resource('/ingredientesreceita', 'IngredientesReceitaController').apiOnly();
-
+  Route.resource('/avaliacoes', 'AvaliacaoController').apiOnly();
+}).middleware('auth');
