@@ -14,6 +14,8 @@ class ValidatorAbstract {
       boolean: "O campo '{{ field }}' deve ser booleano",
       email: "O campo '{{ field }}' deve ser um email válido",
       date: "O campo '{{ field }}' deve ser em formato de data",
+      under: "O campo '{{ field }}' deve ser menor do que o informado",
+      above: "O campo '{{ field }}' deve ser maior do que o informado",
     };
   }
 
