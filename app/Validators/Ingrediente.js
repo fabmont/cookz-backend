@@ -1,9 +1,9 @@
 'use strict'
-
-class Ingrediente {
+const ValidatorAbstract = use('App/Validators/ValidatorAbstract')
+class Ingrediente extends ValidatorAbstract{
   get rules () {
     return {
-      // validation rules
+      nome: 'required|max:50|min:2'
     }
   }
 }

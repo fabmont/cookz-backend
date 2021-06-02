@@ -1,9 +1,9 @@
 'use strict'
-
-class Dificuldade {
+const ValidatorAbstract = use('App/Validators/ValidatorAbstract')
+class Dificuldade extends ValidatorAbstract{
   get rules () {
     return {
-      // validation rules
+      descricao: 'required|max:30|min:2'
     }
   }
 }

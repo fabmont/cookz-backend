@@ -1,9 +1,10 @@
 'use strict'
-
-class UnidadeMedida {
+const ValidatorAbstract = use('App/Validators/ValidatorAbstract')
+class UnidadeMedida extends ValidatorAbstract{
   get rules () {
     return {
-      // validation rules
+      descricao: 'required|min:2',
+      sigla:'required|min:1|max:3'
     }
   }
 }
