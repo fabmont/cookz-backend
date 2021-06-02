@@ -41,4 +41,5 @@ Route.group(() => {
     .validator(new Map([[['store'], 'ModoPreparo']]));
 
   Route.put('/favoritar', 'FavoritoController.favoritar').validator('Favorito');
+  Route.resource('/avaliacoes', 'AvaliacaoController').apiOnly();
 }).middleware('auth');
